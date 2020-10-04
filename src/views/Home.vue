@@ -123,10 +123,10 @@
           </form>
         </div> -->
 
-        <div class="col-10 col-sm-10 col-md-7 mt-1">
+        <div class="col-10 col-sm-10 col-md-8 mt-1 ">
            <div class="card d-inline-block mt-3">
-          <div v-if="listProduct.length > 0">
-              <div :value="item.id" v-for="item in listProduct" :key="item.id">
+          <div v-if="listProduct.length > 0" >
+              <div :value="item.id" v-for="item in listProduct" :key="item.id" class='d-inline-block' >
                 <img
                   :src="'http://localhost:1999/'+item.Image"
                   v-bind:alt="item.name"
@@ -159,7 +159,7 @@
         </div>
 
         <div
-          class="col-12 col-sm-12 col-md-4 mb-4"
+          class="col-12 col-sm-12 col-md-3 mb-4"
           style="background-color: #abc; height: 90vh;"
         >
           <div v-if="cart.data.length == 0">
@@ -472,18 +472,24 @@ body {
 
 /* Main bar */
 .col-md-7 {
-  padding-left: 20px;
+  padding-left: 10px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+   align-items: center;
   overflow-y: scroll;
   height: 90vh;
   position: static;
 }
 
+.card-body {
+  width : 200px;
+}
+
 .col-md-7 .card {
-  width: 260px;
+  width: -20px;
   /* width : 100%; */
-  margin-left: 20px;
+  margin-left: 10px;
   background-color: transparent;
   border-color: transparent;
 }
@@ -495,11 +501,13 @@ body {
   overflow-y: scroll;
   height: 90vh;
   position: static;
+   /* justify-content: left;
+   align-items: center; */
 }
 
 .col-md-8 .card {
-  width: 260px;
-  margin-left: 20px;
+  /* width: 20px; */
+  margin-left: 10px;
   background-color: transparent;
   border-color: transparent;
 }
@@ -507,18 +515,23 @@ body {
 /* end of main bar */
 
 /* Aside bar */
-.col-md-4 .card {
+.col-md-3 .card {
   height: 100px;
   display: flex;
   background-color: transparent;
   border-color: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 90vh;
+  position: static;
 }
 
-.col-md-4 .card .no-gutters .card-body h5 {
-  margin-top: -20px;
-}
+/* .col-md-3 .card .no-gutters .card-body h5 { */
+  /* margin-top: -20px; */
+/* } */
 
-.col-md-4 .card .no-gutters .card-body input {
+.col-md-3 .card .no-gutters .card-body input {
   margin-top: 10px;
   height: 24px;
   width: 30px;
@@ -527,7 +540,7 @@ body {
   font-weight: bold;
 }
 
-.col-md-4 .card .no-gutters .card-body button {
+.col-md-3 .card .no-gutters .card-body button {
   margin-top: 10px;
   height: 30px;
   width: 30px;
@@ -536,7 +549,7 @@ body {
   font-weight: bold;
 }
 
-.col-md-4 .card .no-gutters .card-body h6 {
+.col-md-3 .card .no-gutters .card-body h6 {
   margin-top: 9px;
   text-align: right;
 }
@@ -545,25 +558,38 @@ body {
   margin-top: 20px;
 }
 
-.col-md-4 .button-checkout-cancel {
+.col-md-3 .button-checkout-cancel {
   display: flex;
   flex-direction: column;
   margin-top: 30px;
   padding-right: 8px;
 }
 
-.col-md-4 .button-checkout-cancel button {
+.col-md-3 .button-checkout-cancel button {
   width: 100%;
   height: 40px;
 }
 
-.col-md-4 .button-checkout-cancel .button-checkout button {
+.btn-cancel {
+width : 40%;
+height: 50px;
+margin : auto;
+}
+
+.btn-checkout {
+width : 50%;
+height : 50px;
+margin : auto;
+}
+
+
+.col-md-3 .button-checkout-cancel .button-checkout button {
   background-color: #57cad5;
   border: none;
   color: #ffffff;
 }
 
-.col-md-4 .button-checkout-cancel .button-cancel button {
+.col-md-3 .button-checkout-cancel .button-cancel button {
   margin-top: 10px;
   background-color: #f24f8a;
   border: none;
