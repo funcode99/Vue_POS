@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-light ">
+    <nav class="navbar navbar-light">
       <a class="navbar-brand" href="#">
         <img
           src="@/icons/burger-menu.png"
@@ -17,14 +17,14 @@
           <h1 class="title">Food Items</h1>
         </div>
       </div>
-      <div style="margin-right: 200px;">
+      <div style="margin-right: 200px">
         <div v-if="searchForms == false">
-        <img
-          @click="searchFormsToggle"
-          class="search-menu"
-          src="@/icons/magnifying-glass.png"
-          alt
-        />
+          <img
+            @click="searchFormsToggle"
+            class="search-menu"
+            src="@/icons/magnifying-glass.png"
+            alt
+          />
         </div>
         <div v-if="searchForms == true">
           <div class="row">
@@ -49,16 +49,20 @@
                 v-model="search"
               />
             </form>
-            <b-button-close  @click="searchFormsToggle"></b-button-close>
+            <b-button-close @click="searchFormsToggle"></b-button-close>
           </div>
         </div>
       </div>
 
-      <div class="food-name-cart" style="margin-right:110px;">
+      <div class="food-name-cart" style="margin-right: 110px">
         <h1 class="cart-text">
           Cart<span
             class="box-cart"
-            style="background-color:#57CAD5; border-radius:100px; color:white;"
+            style="
+              background-color: #57cad5;
+              border-radius: 100px;
+              color: white;
+            "
             >{{ cart.data.length }}</span
           >
         </h1>
@@ -68,8 +72,8 @@
     <section id="main-side-aside">
       <div class="row">
         <div
-          class="col-2 col-sm-2 col-md-1 "
-          style="background-color:#ffff; height:90vh;"
+          class="col-2 col-sm-2 col-md-1"
+          style="background-color: #ffff; height: 90vh"
         >
           <div class="sidebar">
             <router-link to="/">
@@ -93,42 +97,36 @@
               />
             </router-link>
             <button class="btn mt-4" v-b-modal.modal-add>
-              <img class="fork-icon-2" src="@/icons/add.png" width="45" height="45" />
+              <img
+                class="fork-icon-2"
+                src="@/icons/add.png"
+                width="45"
+                height="45"
+              />
             </button>
             <button class="btn mt-3" v-b-modal.modal-delete-product>
-              <img class="fork-icon-2" src="@/icons/delete.png" width="45" height="45" alt />
+              <img
+                class="fork-icon-2"
+                src="@/icons/delete.png"
+                width="45"
+                height="45"
+                alt
+              />
             </button>
           </div>
         </div>
 
-        <!-- <div v-if="searchForms == true">
-          <b-dropdown id="dropdown-1" text="Filter Product" class="">
-            <b-dropdown-item @click="sortProduct('Name')">Name</b-dropdown-item>
-            <b-dropdown-item @click="sortProduct('HighestPrice')"
-              >Highest Price</b-dropdown-item
-            >
-            <b-dropdown-item @click="sortProduct('LowestPrice')"
-              >Lowest Price</b-dropdown-item
-            >
-          </b-dropdown>
-
-          <form @submit="searchProduct" onsubmit="return false">
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Search here"
-              aria-label="Search"
-              v-model="search"
-            />
-          </form>
-        </div> -->
-
-        <div class="col-10 col-sm-10 col-md-8 mt-1 ">
-           <div class="card d-inline-block mt-3">
-          <div v-if="listProduct.length > 0" >
-              <div :value="item.id" v-for="item in listProduct" :key="item.id" class='d-inline-block' >
+        <div class="col-10 col-sm-10 col-md-8 mt-1">
+          <div class="card d-inline-block mt-3">
+            <div v-if="listProduct.length > 0">
+              <div
+                :value="item.id"
+                v-for="item in listProduct"
+                :key="item.id"
+                class="d-inline-block"
+              >
                 <img
-                  :src="'http://localhost:1999/'+item.Image"
+                  :src="'http://localhost:1999/' + item.Image"
                   v-bind:alt="item.name"
                   width="250"
                   height="200"
@@ -147,26 +145,25 @@
                   </p>
                 </div>
               </div>
-            
-          </div>
-
-          <div v-else-if="listProduct.length <= 0">
-            <div class="food-menu">
-              <h1>Product not found</h1>
             </div>
-          </div>
+
+            <div v-else-if="listProduct.length <= 0">
+              <div class="food-menu">
+                <h1>Product not found</h1>
+              </div>
+            </div>
           </div>
         </div>
 
         <div
           class="col-12 col-sm-12 col-md-3 mb-4"
-          style="background-color: #abc; height: 90vh;"
+          style="background-color: #abc; height: 90vh"
         >
           <div v-if="cart.data.length == 0">
-            <div class="" style="text-align: center;">
+            <div class="" style="text-align: center">
               <img src="@/icons/food-and-restaurant.png" />
-              <h6 style="margin-top:-45px;">Your cart is empty</h6>
-              <small style="color:gray;">
+              <h6 style="margin-top: -45px">Your cart is empty</h6>
+              <small style="color: gray">
                 <h5>Please add some items from the menu</h5>
               </small>
             </div>
@@ -180,7 +177,7 @@
                     <div class="col-4 mt-2 ml-2">
                       <img
                         class="checkout-img"
-                        :src="'http://localhost:1999/'+item.Image"
+                        :src="'http://localhost:1999/' + item.Image"
                         width="100"
                         height="100"
                         alt
@@ -254,7 +251,7 @@ import deleteProductModal from "@/components/Modal/deleteProduct";
 
 export default {
   name: "App",
-  data: function() {
+  data: function () {
     return {
       listProduct: [],
       cart: {
@@ -267,7 +264,7 @@ export default {
   },
   methods: {
     niceNumber() {
-      $(function() {
+      $(function () {
         $('input[type="number"]').niceNumber();
       });
     },
@@ -309,9 +306,15 @@ export default {
       axios
         .get(process.env.VUE_APP_MAIN_URL + `search?name=${this.search}`)
         .then((res) => {
+          if(res.data === 'tidak ditemukan!'){
+         this.listProduct = []
+          }
+          else{
           console.log("search has been completed");
           console.log(res);
           this.listProduct = res.data;
+          }
+         
         })
         .catch((err) => {
           console.log(err);
@@ -322,6 +325,7 @@ export default {
     searchFormsToggle() {
       if (this.searchForms == true) {
         this.searchForms = false;
+        this.getProduct()
       } else {
         this.searchForms = true;
       }
@@ -353,7 +357,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap");
 
 .width {
-  width : 100%;
+  width: 100%;
 }
 
 .price {
@@ -476,14 +480,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-   align-items: center;
+  align-items: center;
   overflow-y: scroll;
   height: 90vh;
   position: static;
 }
 
 .card-body {
-  width : 200px;
+  width: 200px;
 }
 
 .col-md-7 .card {
@@ -501,7 +505,7 @@ body {
   overflow-y: scroll;
   height: 90vh;
   position: static;
-   /* justify-content: left;
+  /* justify-content: left;
    align-items: center; */
 }
 
@@ -528,7 +532,7 @@ body {
 }
 
 /* .col-md-3 .card .no-gutters .card-body h5 { */
-  /* margin-top: -20px; */
+/* margin-top: -20px; */
 /* } */
 
 .col-md-3 .card .no-gutters .card-body input {
@@ -571,17 +575,16 @@ body {
 }
 
 .btn-cancel {
-width : 40%;
-height: 50px;
-margin : auto;
+  width: 40%;
+  height: 50px;
+  margin: auto;
 }
 
 .btn-checkout {
-width : 50%;
-height : 50px;
-margin : auto;
+  width: 50%;
+  height: 50px;
+  margin: auto;
 }
-
 
 .col-md-3 .button-checkout-cancel .button-checkout button {
   background-color: #57cad5;
