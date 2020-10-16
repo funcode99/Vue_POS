@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value for testing')
-        choice(name: 'CICD', choices: ['CI', 'CICD'], description: 'Pick something')
+        choice(name: 'CICD', choices: ['CI', 'CICD to Dev', 'CICD to Prod'], description: 'Pick one')
     }
 
     stages {
@@ -58,15 +58,58 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+     stage('Deploy on development') {
             when {
                 expression {
-                    params.CICD == 'CICD'
+                    params.CICD == 'CICD to Dev' || BRANCH_NAME == 'dev'
                 }
             }
             steps {
-                 script {
-                  sh 'echo passed'
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'development',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        sourceFiles: 'docker-compose.yml',
+                                        remoteDirectory: 'frontend',
+                                        execCommand: 'cd frontend && docker-compose up -d',
+                                        execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+
+    stage('Deploy on production') {
+            when {
+                expression {
+                    params.CICD == 'CICD to Prod' || BRANCH_NAME == 'prod'
+                }
+            }
+            steps {
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'production',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        sourceFiles: 'docker-compose.yml',
+                                        remoteDirectory: 'frontend',
+                                        execCommand: 'cd frontend && docker-compose up -d',
+                                        execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
                 }
             }
         }

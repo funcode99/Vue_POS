@@ -3,7 +3,6 @@ FROM node:lts-alpine as Build-Stage
 WORKDIR /app
 COPY package.json ./
 RUN yarn install
-RUN yarn ad
 COPY . /app
 RUN yarn build 
 
