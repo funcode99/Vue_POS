@@ -74,8 +74,8 @@ pipeline {
                                 transfers: [
                                     sshTransfer(
                                         sourceFiles: 'docker-compose.yml',
-                                        remoteDirectory: 'frontend',
-                                        execCommand: 'cd frontend && docker-compose up -d',
+                                        remoteDirectory: 'Vue_POS',
+                                        execCommand: 'cd Vue_POS && docker-compose up -d',
                                         execTimeout: 120000,
                                     )
                                 ]
@@ -102,8 +102,8 @@ pipeline {
                                 transfers: [
                                     sshTransfer(
                                         sourceFiles: 'docker-compose.yml',
-                                        remoteDirectory: 'frontend',
-                                        execCommand: 'cd frontend && docker-compose up -d',
+                                        remoteDirectory: 'Vue_POS',
+                                        execCommand: 'cd Vue_POS && docker-compose up -d',
                                         execTimeout: 120000,
                                     )
                                 ]
