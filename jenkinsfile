@@ -6,8 +6,8 @@ pipeline {
     agent any
 
     parameters {
-        booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value for testing')
-        choice(name: 'CICD', choices: ['CI', 'CICD to Dev', 'CICD to Prod'], description: 'Pick one')
+        booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value from testing')
+        choice(name: 'CICD', choices: ['CI', 'CICD Deployment', 'CICD Production'], description: 'Pick one')
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 nodejs("node12") {
-                    sh 'yarn install'
+                    sh 'npm install'
                 }
             }
         }
@@ -50,66 +50,14 @@ pipeline {
                     params.RUNTEST
                 }
             }
-
             steps {
+                
                 script {
                     builderDocker.push("${env.GIT_BRANCH}")
                 }
             }
         }
 
-     stage('Deploy on development') {
-            when {
-                expression {
-                    params.CICD == 'CICD to Dev' || BRANCH_NAME == 'dev'
-                }
-            }
-            steps {
-                script {
-                    sshPublisher(
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'development',
-                                verbose: false,
-                                transfers: [
-                                    sshTransfer(
-                                        sourceFiles: 'docker-compose.yml',
-                                        execCommand: 'docker-compose up -d',
-                                        execTimeout: 120000,
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
-            }
-        }
-
-    stage('Deploy on production') {
-            when {
-                expression {
-                    params.CICD == 'CICD to Prod' || BRANCH_NAME == 'prod'
-                }
-            }
-            steps {
-                script {
-                    sshPublisher(
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'production',
-                                verbose: false,
-                                transfers: [
-                                    sshTransfer(
-                                        sourceFiles: 'docker-compose.yml',
-                                        execCommand: 'docker-compose up -d',
-                                        execTimeout: 120000,
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
-            }
-        }
+       
     }
 }
