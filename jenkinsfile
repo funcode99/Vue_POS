@@ -53,7 +53,8 @@ pipeline {
             steps {
                 
                 script {
-                    builderDocker.push("${env.GIT_BRANCH}")
+            withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "" ]) {
+                bat "docker push silverstack/frontend:${CommitHash}"
                 }
             }
         }
