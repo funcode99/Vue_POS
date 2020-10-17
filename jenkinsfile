@@ -5,6 +5,11 @@ pipeline {
 
     agent any
 
+        environment {
+            registry = "silverstack19/frontend"
+            registryCredential = ‘dockerhub’
+            }   
+
     parameters {
         booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value from testing')
         choice(name: 'CICD', choices: ['CI', 'CICD Deployment', 'CICD Production'], description: 'Pick one')
@@ -51,9 +56,10 @@ pipeline {
                 }
             }
             steps {
-                
                 script {
-               builderDocker.push("${env.GIT_BRANCH}")
+                        docker.withRegistry( '', registryCredential ) {
+                        builderDocker.push()
+                        }
                     }       
                 }
             }
