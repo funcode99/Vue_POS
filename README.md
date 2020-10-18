@@ -1,5 +1,7 @@
 # vue-js-example
 
+hahahaha
+
 ## Project setup
 ```
 npm install
