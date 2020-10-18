@@ -12,7 +12,6 @@ pipeline {
     parameters {
         booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value from testing')
         booleanParam(name: 'DEPLOY', defaultValue: true, description: 'Toggle this value from testing')
-        choice(name: 'CICD', choices: ['CI', 'CICD Deployment', 'CICD Production'], description: 'Pick one')
     }
 
     stages {
