@@ -80,7 +80,7 @@ pipeline {
                                     sshTransfer(
                                         sourceFiles: 'docker-compose.yml',
                                         remoteDirectory: '/home/develop/frontend',
-                                        execCommand: 'docker-compose up -d',
+                                        execCommand: 'cat docker-compose.yml',
                                         execTimeout: 120000,
                                     )
                                 ]
