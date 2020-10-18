@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  vue:
+    image: silverstack/vuetest:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - nodejs
+    environment:
+      - VUE_APP_MAIN_URL= 'http://18.234.192.143/product/'
+    networks:
+      - simplenet
+
+networks:
+  simplenet:
