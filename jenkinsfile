@@ -56,11 +56,65 @@ pipeline {
             }
             steps {
                 script {
-                        docker.withRegistry( '', registryCredential ) {
                         builderDocker.push()
-                        }
                     }       
                 }
             }
         }
     }
+
+    stage('Deploy on development') {
+            when {
+                expression {
+                    params.CICD == 'CICD Deployment' || BRANCH_NAME == 'dev'
+                }
+            }
+            steps {
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'Development',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        sourceFiles: 'docker-compose.yml',
+                                        remoteDirectory: '/home/develop/frontend',
+                                        execCommand: 'docker-compose up -d',
+                                        execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+        
+        stage('Deploy on production') {
+            when {
+                expression {
+                    params.CICD == 'CICD Production' || BRANCH_NAME == 'prod'
+                }
+            }
+            steps {
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'production-server',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        sourceFiles: 'docker-compose.yml',
+                                        remoteDirectory: 'frontend',
+                                        execCommand: 'cd frontend && docker-compose up -d',
+                                        execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
