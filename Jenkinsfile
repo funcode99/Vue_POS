@@ -64,11 +64,6 @@ pipeline {
     }
 
     stage('Deploy on development') {
-            when {
-                expression {
-                    params.DEPLOY
-                }
-            }
             steps {
                 script {
                     sshPublisher(
