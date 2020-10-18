@@ -5,10 +5,9 @@ pipeline {
 
     agent any
 
-        environment {
-            registry = "silverstack19/frontend"
-            registryCredential = ‘dockerhub’
-            }   
+            triggers {
+                pollSCM('')
+            }
 
     parameters {
         booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value from testing')
