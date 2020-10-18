@@ -11,6 +11,7 @@ pipeline {
 
     parameters {
         booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value from testing')
+        booleanParam(name: 'DEPLOY', defaultValue: true, description: 'Toggle this value from testing')
         choice(name: 'CICD', choices: ['CI', 'CICD Deployment', 'CICD Production'], description: 'Pick one')
     }
 
@@ -66,7 +67,7 @@ pipeline {
     stage('Deploy on development') {
             when {
                 expression {
-                    params.CICD == 'CICD Deployment' || BRANCH_NAME == 'dev'
+                    params.DEPLOY
                 }
             }
             steps {
@@ -94,7 +95,7 @@ pipeline {
         stage('Deploy on production') {
             when {
                 expression {
-                    params.CICD == 'CICD Production' || BRANCH_NAME == 'prod'
+            BRANCH_NAME == 'prod'
                 }
             }
             steps {
