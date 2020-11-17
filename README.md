@@ -1,6 +1,6 @@
 # vue-js-example
 
-hahahaha contoh aja ini mah
+coba lagi, stress euy
 
 ## Project setup
 ```
