@@ -1,6 +1,6 @@
 # vue-js-example
 
-bisa kek plis
+ini di dev
 
 ## Project setup
 ```
