@@ -1,6 +1,6 @@
 # vue-js-example
 
-coba deploy yalord (3)
+coba deploy yalord (4)
 
 ## Project setup
 ```
