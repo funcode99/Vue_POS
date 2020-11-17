@@ -1,5 +1,5 @@
 # vue-js-example
-test
+coba dolo
 ## Project setup
 ```
 npm install
