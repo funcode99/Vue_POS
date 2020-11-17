@@ -1,6 +1,6 @@
 # vue-js-example
 
-coba duls
+coba deploy yalord
 
 ## Project setup
 ```
