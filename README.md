@@ -1,6 +1,6 @@
 # vue-js-example
 
-tesssstt
+mencoba
 
 ## Project setup
 ```
