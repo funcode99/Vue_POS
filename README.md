@@ -1,6 +1,6 @@
 # vue-js-example
 
-mencoba
+coba duls
 
 ## Project setup
 ```
