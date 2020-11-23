@@ -64,6 +64,10 @@ pipeline {
     }
 
     stage('Deploy on development') {
+            when {
+                expression {
+            BRANCH_NAME == 'dev'
+                }
             steps {
                 script {
                     sshPublisher(
