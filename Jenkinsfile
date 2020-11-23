@@ -68,6 +68,7 @@ pipeline {
                 expression {
             BRANCH_NAME == 'dev'
                 }
+            }
             steps {
                 script {
                     sshPublisher(
