@@ -80,7 +80,7 @@ pipeline {
                                  verbose: false,
                                  transfers: [
                                         sshTransfer(
-                                          execCommand: 'docker-compose down -v -f; docker rmi -f silverstack19/frontend:latest; docker rmi -f silverstack19/backend:latest; docker pull fitrakz/frontend:latest;  docker pull fitrakz/backend:latest;   docker-compose up -d --renew-anon-volumes',
+                                          execCommand: 'docker-compose down -v -f; docker rmi -f silverstack19/frontend:latest; docker rmi -f silverstack19/backend:latest; docker pull silverstack19/frontend:latest;  docker pull silverstack19/backend:latest;   docker-compose up -d --renew-anon-volumes',
                                           execTimeout: 120000,
                                     )
                                 ]
