@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     CommitHash = sh (script : "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-                    builderDocker = docker.build("silverstack19/frontend:${CommitHash}")
+                    builderDocker = docker.build("silverstack19/frontend:latest")
                 }
             }
         }
@@ -56,6 +56,15 @@ pipeline {
                     }       
                 }
             }
+        
+        stage('Remove Image') {
+            steps {
+                script{
+                    sh("docker rmi -f silverstack19/frontend:latest || :")        
+                }      
+            }  
+        }         
+        
          stage('Deploy on development') {
             when {
                 expression {
@@ -71,7 +80,7 @@ pipeline {
                                  verbose: false,
                                  transfers: [
                                         sshTransfer(
-                                          execCommand: 'docker pull silverstack19/frontend:0d897c282e471c62f103142ec1c756077754ed14; docker kill frontend; docker run -d --rm --name frontend -p 8080:80 silverstack19/frontend:0d897c282e471c62f103142ec1c756077754ed14',
+                                          execCommand: 'docker-compose down -v -f; docker rmi -f silverstack19/frontend:latest; docker rmi -f silverstack19/backend:latest; docker pull fitrakz/frontend:latest;  docker pull fitrakz/backend:latest;   docker-compose up -d --renew-anon-volumes',
                                           execTimeout: 120000,
                                     )
                                 ]
