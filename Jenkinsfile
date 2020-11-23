@@ -66,7 +66,7 @@ pipeline {
     stage('Deploy on development') {
             when {
                 expression {
-            BRANCH_NAME == 'dev'
+            env.BRANCH_NAME == 'dev'
                 }
             }
             steps {
