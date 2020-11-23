@@ -4,11 +4,7 @@ def CommitHash
 pipeline {
 
     agent any
-
-            triggers {
-                pollSCM('')
-            }
-
+    
     parameters {
         booleanParam(name: 'RUNTEST', defaultValue: true, description: 'Toggle this value from testing')
         booleanParam(name: 'DEPLOY', defaultValue: true, description: 'Toggle this value from testing')
@@ -63,25 +59,25 @@ pipeline {
         }
     }
 
-    stage('Deploy on development') {
+        stage('Deploy on development') {
             when {
                 expression {
-            env.BRANCH_NAME == 'dev'
-                }
+                    env.BRANCH_NAME == 'dev'
+                 }
             }
-            steps {
-                script {
-                    sshPublisher(
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'Development',
-                                verbose: false,
-                                transfers: [
-                                    sshTransfer(
-                                        sourceFiles: 'docker-compose.yml',
-                                        remoteDirectory: 'frontend',
-                                        execCommand: 'cd frontend && docker-compose up -d',
-                                        execTimeout: 120000,
+                steps {
+                    script {
+                        sshPublisher(
+                            publishers: [
+                                sshPublisherDesc(
+                                 configName: 'Development',
+                                 verbose: false,
+                                 transfers: [
+                                        sshTransfer(
+                                          sourceFiles: 'docker-compose.yml',
+                                          remoteDirectory: 'frontend',
+                                          execCommand: 'cd frontend && docker-compose up -d',
+                                          execTimeout: 120000,
                                     )
                                 ]
                             )
