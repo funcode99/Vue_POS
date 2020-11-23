@@ -1,7 +1,5 @@
 # vue-js-example
 
-coba deploy yalord (4)
-
 ## Project setup
 ```
 npm install
