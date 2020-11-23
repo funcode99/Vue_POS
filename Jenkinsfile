@@ -71,9 +71,7 @@ pipeline {
                                  verbose: false,
                                  transfers: [
                                         sshTransfer(
-                                          sourceFiles: 'docker-compose.yml',
-                                          remoteDirectory: 'frontend',
-                                          execCommand: 'cd /frontend; docker-compose up -d;',
+                                          execCommand: 'docker pull silverstack19/frontend:0d897c282e471c62f103142ec1c756077754ed14; docker kill frontend; docker run -d --rm --name frontend -p 8080:80 silverstack19/frontend:0d897c282e471c62f103142ec1c756077754ed14',
                                           execTimeout: 120000,
                                     )
                                 ]
