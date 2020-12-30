@@ -77,10 +77,12 @@ pipeline {
                             publishers: [
                                 sshPublisherDesc(
                                  configName: 'Development-Idris',
-                                 verbose: false,
+                                 verbose: true,
                                  transfers: [
                                         sshTransfer(
-                                          execCommand: 'docker-compose down -v -f; docker rmi -f silverstack19/frontend:latest; docker rmi -f silverstack19/backend:latest; docker pull silverstack19/frontend:latest;  docker pull silverstack19/backend:latest;   docker-compose up -d --renew-anon-volumes',
+                                          sourceFiles: 'docker-compose.yml',
+                                          remoteDirectory: 'frontend',
+                                          execCommand: 'cd frontend && docker-compose up -d',
                                           execTimeout: 120000,
                                     )
                                 ]
