@@ -76,7 +76,7 @@ pipeline {
                         sshPublisher(
                             publishers: [
                                 sshPublisherDesc(
-                                 configName: 'Development',
+                                 configName: 'Development-Idris',
                                  verbose: false,
                                  transfers: [
                                         sshTransfer(
