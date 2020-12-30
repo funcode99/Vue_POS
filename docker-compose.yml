@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   vue:
-    image: silverstack/vuetest:latest
+    image: silverstack/frontend:latest
     ports:
       - "80:80"
     environment:
