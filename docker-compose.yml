@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - VUE_APP_MAIN_URL= 'http://18.234.192.143/product/'
+      - VUE_APP_MAIN_URL= 'http://3.236.92.142/product/'
     networks:
       - simplenet
 
