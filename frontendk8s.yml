@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: example
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-service
+  namespace: example
+spec:
+  selector:
+    matchLabels:
+      app: user-services
+  replicas: 2
+  template:
+      metadata:
+        labels:
+          app: user-services
+      spec:
+        containers:
+          - name: user-services
+            image: silverstack19/kubernetes-frontend:latest
+            ports:
+              - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: example
+  labels:
+    app: user-services
+spec:
+  selector:
+    app: user-services
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 80
+      protocol: TCP
+      name: serviceport
