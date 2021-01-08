@@ -1,0 +1,61 @@
+---
+    - name: "Image Builder"
+      hosts: localhost
+      become: true
+      vars:
+        hub: "silverstack19"
+        proj: "ansible-frontend"
+        dests: frontend
+        repo: https://github.com/funcode99/Vue_POS.git
+
+      tasks:
+        - name: "Check Connections"
+          ping:
+
+        - name: "Ensure git instaled"
+          yum:
+            name: git
+            state: present
+
+        - name: "Installing python docker"
+          pip:
+            name: docker-py
+            executable: pip2
+
+        - name: "Clone repository"
+          git:
+            repo: "{{repo}}"
+            dest: "{{dests}}"
+            version: dev
+
+        - name: "Build image docker"
+          community.general.docker_image:
+            name: "{{hub}}/{{proj}}"
+            build:
+              path: "{{dests}}"
+            source: build
+
+        - name: "push docker image"
+          community.general.docker_image:
+            name: "{{hub}}/{{proj}}"
+            repository: "{{hub}}/{{proj}}:dev"
+            push: yes
+            source: local
+
+    - name: "Image Run"
+      hosts: production
+      tasks:
+        - name: "Ensure docker-compose instaled"
+          become: true
+          apt:
+            name: docker-compose
+            state: present
+        - name: make directory for frontend
+          file:
+            path: frontend
+            state: directory
+        - name: "send docker compose to another node"
+          copy: src=frontend/docker-compose.yml dest=frontend/docker-compose.yml
+
+        - name: "Running container on server fullstack"
+          command: bash -lc "cd /home/ansman/frontend && docker-compose up -d"
