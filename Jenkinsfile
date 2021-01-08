@@ -93,6 +93,34 @@ pipeline {
             }
         }
         
+          stage('Deploy on development') {
+            when {
+                expression {
+                    env.BRANCH_NAME == 'prod'
+                 }
+            }
+                steps {
+                    script {
+                        sshPublisher(
+                            publishers: [
+                                sshPublisherDesc(
+                                 configName: 'Development-Idris',
+                                 verbose: true,
+                                 transfers: [
+                                        sshTransfer(
+                                          sourceFiles: 'docker-compose.yml',
+                                          remoteDirectory: 'frontend',
+                                          execCommand: 'cd frontend && docker-compose up -d',
+                                          execTimeout: 120000,
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+        
         
      }
   }
