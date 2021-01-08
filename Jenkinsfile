@@ -93,7 +93,7 @@ pipeline {
             }
         }
         
-          stage('Deploy on development') {
+          stage('Deploy on production') {
             when {
                 expression {
                     env.BRANCH_NAME == 'prod'
